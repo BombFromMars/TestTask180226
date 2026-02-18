@@ -24,6 +24,8 @@ export class MainPage {
     readonly addedParamName: Locator
     readonly accept: Locator
     readonly addedDistrictName: Locator
+    readonly elementsDistrict: Locator[]
+    readonly elementsParam: Locator[]
 
 
     constructor(page: Page) {
@@ -50,7 +52,31 @@ export class MainPage {
         this.addedParamName = this.modalWindow.locator('[data-field="виды-параметры>наименование"]')
         this.addedDistrictName = page.locator('[data-field="название"]')
 
-    }
+        this.elementsDistrict = [
+            this.districtName,
+            this.numberInList,
+            this.modalWindow,
+            this.addParams
+        ]
+        this.elementsParam = [
+            this.paramAccept,
+            this.paramComment,
+            this.paramModal,
+            this.paramName,
+            this.paramValue1,
+            this.paramValue2,
+            this.paramValue3,
+            this.paramComment
+        ]
 
+    }
+    async shouldBeDistrictsModal() {
+        for (const elem of this.elementsDistrict) await expect(elem).toBeVisible()
+
+    }
+    async shouldBeParamModal() {
+        for (const elem of this.elementsDistrict) await expect(elem).toBeVisible()
+
+    }
 
 }

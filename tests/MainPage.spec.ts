@@ -21,10 +21,13 @@ test.describe('Test task main', () => {
         await mainPage.adresses.click()
         await mainPage.addAdress.click()
         await mainPage.districtButton.click()
+
+        await mainPage.shouldBeDistrictsModal()
         await mainPage.districtName.fill(await nameOfDistrict)
         await mainPage.addParams.click()
-        
+
         let name = await mainPage.paramName.nth(1).innerText()
+        await mainPage.shouldBeParamModal()
         await mainPage.paramName.nth(1).click() //Так как в рамках тестового задания нет необходимости проверять конкретный параметр, беру первый из списка
         await mainPage.paramValue1.type(Math.floor(Math.random() * 100).toString())
         await mainPage.paramValue2.type(Math.floor(Math.random() * 100).toString())
@@ -33,7 +36,7 @@ test.describe('Test task main', () => {
         await mainPage.paramAccept.click()
 
         await expect(await mainPage.addedParamName.last()).toHaveText(name)
-        await page.waitForTimeout(500) //Ожидание необходимо из-за анимации исчезновения модального окна. Запрос элементов начинает до того, как исчезнет прошлое окно
+        await page.waitForTimeout(500) //Ожидание необходимо из-за анимации исчезновения модального окна. Запрос элементов начинается до того, как исчезнет прошлое окно
         await mainPage.accept.click()
         await expect(await mainPage.addedDistrictName.last()).toHaveText(nameOfDistrict)
 
