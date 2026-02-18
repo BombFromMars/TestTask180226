@@ -85,7 +85,7 @@ export class MainPage {
             await expect(elem).toBeVisible()
     }
     async shouldBeParamModal() {
-        for (const elem of this.elementsDistrict) await expect(elem).toBeVisible()
+        for (const elem of this.elementsParam) await expect(elem).toBeVisible()
     }
 
 }
