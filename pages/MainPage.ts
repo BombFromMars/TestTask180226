@@ -24,7 +24,7 @@ export class MainPage {
     readonly addedParamName: Locator
     readonly accept: Locator
     readonly addedDistrictName: Locator
-    readonly nameOfDistrict: string
+
 
     constructor(page: Page) {
         this.page = page
@@ -49,11 +49,8 @@ export class MainPage {
         this.paramAccept = this.paramModal.locator('[data-cy="btn-save"]')
         this.addedParamName = this.modalWindow.locator('[data-field="виды-параметры>наименование"]')
         this.addedDistrictName = page.locator('[data-field="название"]')
-        this.nameOfDistrict = "Тестовое задание"+ this.randomNumber()
 
     }
-        async randomNumber() {
-            return (Math.floor(Math.random() * 100)).toString()
-    }
+
 
 }
