@@ -3,37 +3,57 @@ import { env } from '../env'
 
 export class MainPage {
     readonly page: Page
-    readonly loginField: Locator
-    readonly passwordField: Locator
-    readonly loginButton: Locator
-    readonly errorBox:Locator
-    readonly errorMessage: string
-
-    readonly link = env.BASE_URL
-    readonly login = env.LOGIN
-    readonly password = env.PASSWORD
-    
+    readonly link: string
+    readonly adressFond: Locator
+    readonly adresses: Locator
+    readonly addAdress: Locator
+    readonly districtButton: Locator
+    readonly districtName: Locator
+    readonly numberInList: Locator
+    readonly modalWindow: Locator
+    readonly addParams: Locator
+    readonly cancel: Locator
+    readonly paramName: Locator
+    readonly paramValue1: Locator
+    readonly paramValue2: Locator
+    readonly paramValue3: Locator
+    readonly paramComment: Locator
+    readonly loremIpsum: string
+    readonly paramModal: Locator
+    readonly paramAccept: Locator
+    readonly addedParamName: Locator
+    readonly accept: Locator
+    readonly addedDistrictName: Locator
+    readonly nameOfDistrict: string
 
     constructor(page: Page) {
         this.page = page
-        this.loginField = page.locator('[data-cy = "login"]')
-        this.passwordField = page.locator('[data-cy = "password"]')
-        this.loginButton = page.locator('[data-cy="submit-btn"]')
-        this.errorBox = page.locator('[class="v-alert__content"]')
-        this.errorMessage = "Неправильный логин или пароль"
-
+        this.link = env.BASE_URL + 'accounts/acc_menu'
+        this.adressFond = page.locator('[data-test-id="Адресный фонд"]')
+        this.adresses = page.locator('[data-test-id="Адреса проживающих"]')
+        this.addAdress = page.locator('[data-cy="btn-add"]')
+        this.districtButton = page.locator('[data-cy="stack-menu-list-item"]').nth(0) //Решение приводит к неустойчивости теста, при возможности переписать или запросить test-id
+        this.districtName = page.locator('[data-test-id="Название района"]')
+        this.numberInList = page.locator('[data-test-id="Номер в списке"]')
+        this.modalWindow = page.locator('[data-test-id="ЛицевыеСчета"]')
+        this.addParams = this.modalWindow.locator('[data-cy="btn-add"]')
+        this.cancel = page.locator('[data-cy="btn-cancel"]')
+        this.paramName = page.locator('[data-field="наименование"]') 
+        this.paramValue1 = page.locator('[data-test-id="Значение"]')
+        this.paramValue2 = page.locator('[data-test-id="Знач2"]')
+        this.paramValue3 = page.locator('[data-test-id="Знач3"]')
+        this.paramComment = page.locator('[data-test-id="Примечание"]')
+        this.loremIpsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis risus."
+        this.paramModal = page.locator('[data-test-id="ЛицевыеСчета.Параметры"]')
+        this.accept = page.locator('[data-cy="btn-save"]')
+        this.paramAccept = this.paramModal.locator('[data-cy="btn-save"]')
+        this.addedParamName = this.modalWindow.locator('[data-field="виды-параметры>наименование"]')
+        this.addedDistrictName = page.locator('[data-field="название"]')
+        this.nameOfDistrict = "Тестовое задание"+ this.randomNumber()
 
     }
-    async userLogin(login = this.login, password = this.password) {
-        await this.loginField.fill(login)
-        await this.passwordField.fill(password)
-        await this.loginButton.click()
+        async randomNumber() {
+            return (Math.floor(Math.random() * 100)).toString()
     }
-    async errorCheck(errorText = this.errorMessage) {
-            await expect(this.errorBox).toBeVisible();
-            await expect(this.errorBox).toContainText(this.errorMessage);
-    }
-
-
 
 }

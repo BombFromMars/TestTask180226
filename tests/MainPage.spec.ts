@@ -1,9 +1,10 @@
 import { test, expect } from '@playwright/test'
 import { MainPage } from '../pages/MainPage'
+import { LoginPage } from '../pages/LoginPage'
 
-
-test.describe('Test task', () => {
+test.describe('Test task main', () => {
     test.skip(({ browserName }) => browserName !== 'chromium');
+    // test.use({ storageState: 'test_files/loginCookies.json' })
         test.beforeEach(async ({ page }, testInfo) => {
         const mainPage = new MainPage(page)
         testInfo.setTimeout(120000)
@@ -11,34 +12,29 @@ test.describe('Test task', () => {
         await page.waitForLoadState()
     })
 
-    test(('Login test positive @login'), async ({ page }) => {
+    test(('Adding District positive @modal'), async ({ page }) => {
         const mainPage = new MainPage(page)
-        await mainPage.userLogin()
-        await page.context().storageState({ path: 'test_files/loginCookies.json' })
-    })
-    test(('Login test negative both fields @login'), async ({ page }) => {
-        const mainPage = new MainPage(page)
-        await mainPage.loginField.fill('test')
-        await mainPage.passwordField.fill('test')
-        await mainPage.loginButton.click()
-        await mainPage.errorCheck()
-    })
+        const loginPage = new LoginPage(page)
+        await loginPage.userLogin()
+        await mainPage.adressFond.click()
+        await mainPage.adresses.click()
+        await mainPage.addAdress.click()
+        await mainPage.districtButton.click()
+        await mainPage.districtName.fill(mainPage.nameOfDistrict)
+        await mainPage.addParams.click()
+        let name = await mainPage.paramName.nth(0).innerText()
+        await mainPage.paramName.nth(0).click() //Так как в рамках тестового задания нет необходимости проверять конкретный параметр, беру первый из списка
+        await mainPage.paramValue1.fill(await mainPage.randomNumber())
+        await mainPage.paramValue2.fill(await mainPage.randomNumber())
+        await mainPage.paramValue3.fill(await mainPage.randomNumber())
+        await mainPage.paramComment.fill(mainPage.loremIpsum)
+        await mainPage.paramAccept.click()
+        await expect(await mainPage.addedParamName.innerText() == name)
+        await mainPage.accept.click()
+        await expect(await mainPage.addedDistrictName.innerText()== mainPage.nameOfDistrict)
 
-    test(('Login test negative password field @login'), async ({ page }) => {
-        const mainPage = new MainPage(page)
-        await mainPage.loginField.fill(mainPage.login)
-        await mainPage.passwordField.fill('test')
-        await mainPage.loginButton.click()
-        await mainPage.errorCheck()
-})
-
-    test(('Login test negative login field @login'), async ({ page }) => {
-        const mainPage = new MainPage(page)
-        await mainPage.loginField.fill('test')
-        await mainPage.passwordField.fill(mainPage.password)
-        await mainPage.loginButton.click()
-        await mainPage.errorCheck()
     })
+ 
 
 
 })
