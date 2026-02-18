@@ -33,6 +33,6 @@ export class LoginPage {
     }
     async errorCheck(errorText = this.errorMessage) {
             await expect(this.errorBox).toBeVisible();
-            await expect(this.errorBox).toContainText(this.errorMessage);
+            await expect(this.errorBox).toContainText(errorText);
     }
 }

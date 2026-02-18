@@ -26,6 +26,11 @@ export class MainPage {
     readonly addedDistrictName: Locator
     readonly elementsDistrict: Locator[]
     readonly elementsParam: Locator[]
+    readonly editAddress: Locator
+    readonly secondParamValue1: Locator
+    readonly checkBox: Locator
+    readonly delete: Locator
+    readonly yes: Locator
 
 
     constructor(page: Page) {
@@ -51,6 +56,11 @@ export class MainPage {
         this.paramAccept = this.paramModal.locator('[data-cy="btn-save"]')
         this.addedParamName = this.modalWindow.locator('[data-field="виды-параметры>наименование"]')
         this.addedDistrictName = page.locator('[data-field="название"]')
+        this.editAddress = page.locator('[data-cy="btn-edit"]')
+        this.secondParamValue1 = page.locator('[data-test-id="Прописанных"]') //Заметил зависимость test-id и названия инпута, но не могу сходу придумать вариант автоматического подтягивания
+        this.checkBox = page.locator('[data-cy="checkbox"]')
+        this.delete = page.locator('[data-cy="btn-delete"]')
+        this.yes = page.locator('[data-cy="btn-yes"]')
 
         this.elementsDistrict = [
             this.districtName,
@@ -71,12 +81,11 @@ export class MainPage {
 
     }
     async shouldBeDistrictsModal() {
-        for (const elem of this.elementsDistrict) await expect(elem).toBeVisible()
-
+        for (const elem of this.elementsDistrict) 
+            await expect(elem).toBeVisible()
     }
     async shouldBeParamModal() {
         for (const elem of this.elementsDistrict) await expect(elem).toBeVisible()
-
     }
 
 }

@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test'
+import { test} from '@playwright/test'
 import { LoginPage } from '../pages/LoginPage'
 import { MainPage } from '../pages/MainPage'
 
@@ -11,7 +11,7 @@ test.describe('Test task login', () => {
         await page.waitForLoadState()
     })
 
-    test(('Login test positive @login @cookies'), async ({ page }) => {
+    test(('Login test positive @login'), async ({ page }) => {
         const loginPage = new LoginPage(page)
         const mainPage = new MainPage(page)
         await loginPage.userLogin()
