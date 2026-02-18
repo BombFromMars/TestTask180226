@@ -1,0 +1,28 @@
+{
+  "dependencies": {
+    "@playwright/test": "^1.58.2",
+    "@types/node": "^25.2.3",
+    "dotenv": "^17.3.1",
+    "playwright": "^1.58.2"
+  },
+  "name": "testtask180226",
+  "version": "1.0.0",
+  "description": "TestTask",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BombFromMars/TestTask180226.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BombFromMars/TestTask180226/issues"
+  },
+  "homepage": "https://github.com/BombFromMars/TestTask180226#readme"
+}
